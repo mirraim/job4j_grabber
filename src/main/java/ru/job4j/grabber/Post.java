@@ -28,56 +28,63 @@ public class Post {
         return topic;
     }
 
-    public void setTopic(String topic) {
+    public Post setTopic(String topic) {
         this.topic = topic;
+        return this;
     }
 
     public String getUrl() {
         return url;
     }
 
-    public void setUrl(String url) {
+    public Post setUrl(String url) {
         this.url = url;
+        return this;
     }
 
     public String getAuthor() {
         return author;
     }
 
-    public void setAuthor(String author) {
+    public Post setAuthor(String author) {
         this.author = author;
+        return this;
     }
 
     public String getDetails() {
         return details;
     }
 
-    public void setDetails(String details) {
+    public Post setDetails(String details) {
         this.details = details;
+        return this;
     }
 
     public int getAnswers() {
         return answers;
     }
 
-    public void setAnswers(int answers) {
+    public Post setAnswers(int answers) {
         this.answers = answers;
+        return this;
     }
 
     public int getViews() {
         return views;
     }
 
-    public void setViews(int views) {
+    public Post setViews(int views) {
         this.views = views;
+        return this;
     }
 
     public LocalDateTime getDate() {
         return date;
     }
 
-    public void setDate(LocalDateTime date) {
+    public Post setDate(LocalDateTime date) {
         this.date = date;
+        return this;
     }
 
     @Override
