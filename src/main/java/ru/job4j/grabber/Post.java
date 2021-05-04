@@ -7,6 +7,7 @@ public class Post {
     private String topic;
     private String url;
     private String author;
+    private String details;
     private int answers;
     private int views;
     private LocalDateTime date;
@@ -18,6 +19,9 @@ public class Post {
         this.answers = answers;
         this.views = views;
         this.date = date;
+    }
+
+    public Post() {
     }
 
     public String getTopic() {
@@ -42,6 +46,14 @@ public class Post {
 
     public void setAuthor(String author) {
         this.author = author;
+    }
+
+    public String getDetails() {
+        return details;
+    }
+
+    public void setDetails(String details) {
+        this.details = details;
     }
 
     public int getAnswers() {
@@ -95,6 +107,7 @@ public class Post {
         return "Post{" + "topic='" + topic
                 + ", url='" + url
                 + ", author='" + author
+                + ", details=" + details
                 + ", answers=" + answers
                 + ", views=" + views
                 + ", date=" + date + '}';

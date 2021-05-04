@@ -4,12 +4,20 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import ru.job4j.grabber.Post;
 import ru.job4j.grabber.utils.SqlRuDateTimeParser;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SqlRuParse {
+    List<Post> posts;
+
+    public SqlRuParse() {
+        posts = new ArrayList<>();
+    }
 
     public static void main(String[] args) throws Exception {
         SqlRuParse parser = new SqlRuParse();
@@ -23,13 +31,16 @@ public class SqlRuParse {
         Document doc = Jsoup.connect(url).get();
         Elements row = doc.select(".postslisttopic");
         for (Element td : row) {
+            Post post = new Post();
             Element href = td.child(0);
             String attrUrl = href.attr("href");
-            System.out.println(attrUrl);
-            System.out.println(href.text());
-            System.out.println(getDetails(attrUrl));
-            Element date = td.parent().child(5);
-            System.out.println(date.text());
+            post.setUrl(attrUrl);
+            post.setTopic(href.text());
+            post.setDetails(getDetails(attrUrl));
+            //Element date = td.parent().child(5);
+            //System.out.println(date.text());
+            post.setDate(getDate(attrUrl));
+            posts.add(post);
         }
     }
 
