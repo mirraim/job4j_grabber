@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class Post {
+    private String id;
     private String topic;
     private String url;
     private String author;
@@ -31,6 +32,14 @@ public class Post {
     public Post setTopic(String topic) {
         this.topic = topic;
         return this;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getUrl() {
