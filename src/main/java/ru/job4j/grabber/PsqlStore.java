@@ -11,7 +11,7 @@ public class PsqlStore implements Store, AutoCloseable {
 
     public PsqlStore(Properties cfg) {
         try {
-            Class.forName(cfg.getProperty("driver-class-name"));
+            Class.forName(cfg.getProperty("jdbc.driver"));
             cnn = DriverManager.getConnection(
                     cfg.getProperty("url"),
                     cfg.getProperty("username"),
@@ -21,15 +21,25 @@ public class PsqlStore implements Store, AutoCloseable {
         }
     }
 
+    public PsqlStore(Connection cnn) {
+        this.cnn = cnn;
+    }
+
     @Override
     public void save(Post post) {
         try (PreparedStatement statement = cnn.prepareStatement(
-                "insert into post (name, text, link, created) values (?, ?, ?, ?);")) {
+                "insert into post (name, text, link, created) values (?, ?, ?, ?);",
+                Statement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, post.getTopic());
             statement.setString(2, post.getDetails());
             statement.setString(3, post.getUrl());
-            statement.setString(4, post.getDate().toLocalDate().toString());
+            statement.setString(4, post.getDate().toString());
             statement.execute();
+            try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    post.setId(String.valueOf(generatedKeys.getInt(1)));
+                }
+            }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -64,8 +74,8 @@ public class PsqlStore implements Store, AutoCloseable {
         try (PreparedStatement statement = cnn.prepareStatement(
                 "select * from post where id=?;"
         )) {
+            statement.setInt(1, Integer.parseInt(id));
             try (ResultSet resultSet = statement.executeQuery()) {
-                statement.setInt(1, Integer.parseInt(id));
                 while (resultSet.next()) {
                     rsl = new Post().setId(String.valueOf(resultSet.getInt("id")))
                                     .setTopic(resultSet.getString("name"))
