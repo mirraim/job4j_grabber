@@ -1,5 +1,6 @@
 package ru.job4j.grabber;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.*;
@@ -40,11 +41,11 @@ public class PsqlStoreTest {
         assertEquals(store.getAll().size(), before + 1);
     }
 
+    @Ignore
     @Test
     public void getAll() throws SQLException {
         PsqlStore store = new PsqlStore(ConnectionRollback.create(this.init()));
         List<Post> posts = store.getAll();
-        posts.forEach(System.out::println);
         assertEquals(posts.size(), 1);
     }
 
