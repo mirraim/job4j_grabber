@@ -37,7 +37,6 @@ public class SqlRuParse implements Parse {
             Document doc = Jsoup.connect(link).get();
             post.setTopic(getTopic(doc))
                     .setUrl(link)
-                    .setAuthor(getAuthor(doc))
                     .setDetails(getDetails(doc))
                     .setDate(getDate(doc));
         } catch (IOException e) {
@@ -65,12 +64,6 @@ public class SqlRuParse implements Parse {
         String date = element.text();
         String rsl = date.substring(0, date.indexOf('[')).trim();
         return new SqlRuDateTimeParser().parse(rsl);
-    }
-
-    public String getAuthor(Document doc) {
-        Elements row = doc.select("td.msgBody");
-        Element element = row.first();
-        return element.child(0).text();
     }
 
     public String getTopic(Document doc) {
