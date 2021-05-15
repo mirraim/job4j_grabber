@@ -21,6 +21,7 @@ public class Post {
         this.date = date;
     }
 
+
     public String getTopic() {
         return topic;
     }
@@ -33,6 +34,7 @@ public class Post {
     public String getId() {
         return id;
     }
+
 
     public Post setId(String id) {
         this.id = id;
@@ -48,6 +50,7 @@ public class Post {
         return this;
     }
 
+
     public String getDetails() {
         return details;
     }
@@ -56,6 +59,7 @@ public class Post {
         this.details = details;
         return this;
     }
+
 
     public LocalDateTime getDate() {
         return date;
